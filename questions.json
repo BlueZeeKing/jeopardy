@@ -1,0 +1,137 @@
+{
+  "RIGHT FROM THE GECKO": {
+    "200": {
+      "question": "Geckos store fat in this body part & when in danger, can snap it off & leave it behind",
+      "answer": "Gecko",
+      "dd": false
+    },
+    "400": {
+      "question": "The lizard seen here can't change its spots because its this variety of gecko",
+      "answer": "A Leopard Gecko",
+      "dd": false
+    },
+    "600": {
+      "question": "Some baby geckos go through this 7-letter process of sloughing off or shedding skin about once a week",
+      "answer": "Molting",
+      "dd": false
+    },
+    "800": {
+      "question": "The giant day gecko seen here is native to this large African island",
+      "answer": "Madagascar",
+      "dd": false
+    },
+    "1000": {
+      "question": "Although a few species give birth to live young, most are this 9-letter type, meaning they lay eggs",
+      "answer": "Oviparous",
+      "dd": false
+    }
+  },
+  "FESTIVALS": {
+    "200": {
+      "question": "The San Fermin Festival held in Pamplona each July is best known for this daily event involving animals",
+      "answer": "The running of the bulls",
+      "dd": false
+    },
+    "400": {
+      "question": "In Islam, the Eid al-Adha, or festival of sacrifice, remembers this man's willingness to sacrifice his son",
+      "answer": "Abraham",
+      "dd": false
+    },
+    "600": {
+      "question": "This pop music festival is named for a town in southwestern England also said to be the burial site of King Arthur",
+      "answer": "Glastonbury",
+      "dd": false
+    },
+    "800": {
+      "question": "The film festival in this major Dutch port bestows the Tiger Award as its top prize",
+      "answer": "Rotterdam",
+      "dd": false
+    },
+    "1000": {
+      "question": "Term for a festival on the edge of a larger festival; a famous one began at Edinburgh in 1947",
+      "answer": "Fringe Fest",
+      "dd": false
+    }
+  },
+  "5 LETTERS, 4 VOWELS": {
+    "200": {
+      "question": "Directional term for a convex belly button",
+      "answer": "Outie",
+      "dd": false
+    },
+    "400": {
+      "question": "A home on a high spot can be called this, just like the mountaintop nest of a bird of prey",
+      "answer": "Aerie",
+      "dd": false
+    },
+    "600": {
+      "question": "The final section of Rimbaud's \"Une saison en enfer\" is titled this, translated as \"Farewell\"",
+      "answer": "Adieu",
+      "dd": false
+    },
+    "800": {
+      "question": "Seen here, the salad known as shrimp this is a perfect lunch for a Disney ape king",
+      "answer": "Louie",
+      "dd": false
+    },
+    "1000": {
+      "question": "A braid of hair that hangs from behind, or a place to line up behind others & wait",
+      "answer": "Queue",
+      "dd": false
+    }
+  },
+  "STORY TIME": {
+    "200": {
+      "question": "In this 1818 classic a Swiss scientist isn't neutral about playing mix-&-match with some corpse parts",
+      "answer": "Frankenstein",
+      "dd": false
+    },
+    "400": {
+      "question": "Let's go with the Flaubert! This 1857 novel details a truly sad state of affairs",
+      "answer": "Madame Bovary",
+      "dd": false
+    },
+    "600": {
+      "question": "Readers discovered \"The Secret Life of\" this James Thurber character in the March 18, 1939 issue of the New Yorker",
+      "answer": "Walter Mitty",
+      "dd": false
+    },
+    "800": {
+      "question": "This rabbit-loving character calls a woman \"purty\"; that relationship ends in an extremely awful way, as does his life",
+      "answer": "Of Mice and Men",
+      "dd": false
+    },
+    "1000": {
+      "question": "Ludovico's technique is applied rather violently to make Alex non-violent in this novel",
+      "answer": "A Clockwork Orange",
+      "dd": true
+    }
+  },
+  "LONG-RUNNING TV SHOWS": {
+    "200": {
+      "question": "Decades of choices & wacky costumes on \"Let's Make a Deal\" began with Monty Hall as host; this guy got the job in 2009",
+      "answer": "Wayne Brady",
+      "dd": false
+    },
+    "400": {
+      "question": "An episode in Season One of this series had James Earl Jones reciting the alphabet; season 15 included a farewell to Mr. Hooper",
+      "answer": "Sesame Street",
+      "dd": false
+    },
+    "600": {
+      "question": "5 decades of Brit hits on \"Masterpiece\" include \"Sherlock\" with this actor in the title role",
+      "answer": "Cumberbatch",
+      "dd": false
+    },
+    "800": {
+      "question": "When this talk show premiered nationally 67 years ago, it was hosted by Steve Allen & Willie Mays was one of the first guests",
+      "answer": "The Tonight Show",
+      "dd": false
+    },
+    "1000": {
+      "question": "The current theme music for this show around since 1947 was composed by John Williams & is titled \"The Pulse Of Events\"",
+      "answer": "Meet the Press",
+      "dd": false
+    }
+  }
+}
