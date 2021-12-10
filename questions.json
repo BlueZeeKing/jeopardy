@@ -133,5 +133,32 @@
       "answer": "Meet the Press",
       "dd": false
     }
+  },
+  "FESTIVALS 2": {
+    "200": {
+      "question": "The San Fermin Festival held in Pamplona each July is best known for this daily event involving animals",
+      "answer": "The running of the bulls",
+      "dd": false
+    },
+    "400": {
+      "question": "In Islam, the Eid al-Adha, or festival of sacrifice, remembers this man's willingness to sacrifice his son",
+      "answer": "Abraham",
+      "dd": false
+    },
+    "600": {
+      "question": "This pop music festival is named for a town in southwestern England also said to be the burial site of King Arthur",
+      "answer": "Glastonbury",
+      "dd": false
+    },
+    "800": {
+      "question": "The film festival in this major Dutch port bestows the Tiger Award as its top prize",
+      "answer": "Rotterdam",
+      "dd": false
+    },
+    "1000": {
+      "question": "Term for a festival on the edge of a larger festival; a famous one began at Edinburgh in 1947",
+      "answer": "Fringe Fest",
+      "dd": false
+    }
   }
 }
