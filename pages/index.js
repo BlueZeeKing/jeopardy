@@ -240,7 +240,7 @@ function useScore(numTeams) {
 
   function addTeam(index, amount) {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy[index] = stateCopy[index] + amount
+    stateCopy[index]['score'] = stateCopy[index]['score'] + amount
     setState(stateCopy)
   }
 
