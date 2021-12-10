@@ -47,6 +47,7 @@ export default function Home() {
         <title>Jeopardy</title>
         <meta name="description" content="Jeopardy website for engineering club" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="icon" type="image/png" href="favicon.png" />
       </Head>
 
       <main className="p-6 w-full h-screen bg-blue-light">
