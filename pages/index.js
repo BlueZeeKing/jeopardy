@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import React, { useRef, useState } from 'react'
+import { nanoid } from 'nanoid'
 
 import styled from 'styled-components';
 import { motion } from "framer-motion"
@@ -91,8 +92,6 @@ function Jeopardy(props) {
     })
   }
 
-  console.log(state, questions)
-
   return (
     <>
       <div className="flex-col flex h-full">
@@ -159,19 +158,23 @@ function AnimateSquare(props) {
 
   if (props.reveal) {
     return (
-      <SquareStyleBig onClick={increment} animate={{ x: [props.left, 10], y: [props.top, 10], width: [props.width, window.innerWidth - 20], height: [props.height, window.innerHeight - 20], opacity: [1, 1] }} transition={{ duration: 0.7 }}>
+      <SquareStyleBig key="animate" onClick={increment} animate={{ x: [props.left, 10], y: [props.top, 10], width: [props.width, window.innerWidth - 20], height: [props.height, window.innerHeight - 20], opacity: [1, 1] }} transition={{ duration: 0.7 }}>
         <motion.div className="whitespace-nowrap w-full relative h-full" animate={{ scale: [0.5, 1], opacity: [0, 1] }} transition={{ duration: 0.3, delay: 0.7 }}><div className="w-full absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] whitespace-normal p-5">{side ? props.answer : props.question}</div></motion.div>
       </SquareStyleBig>
     )
   } else {
     try {
       return (
-        <SquareStyleBig onClick={increment} animate={{ x: window.innerWidth / 2, y: window.innerHeight / 2, width: 0, height: 0, opacity: [1, 0] }} transition={{ duration: 1 }}>
+        <SquareStyleBig key="animate" onClick={increment} animate={{ x: window.innerWidth / 2, y: window.innerHeight / 2, width: 0, height: 0, opacity: [1, 0] }} transition={{ duration: 1 }}>
           <motion.div className="whitespace-nowrap w-full relative h-full" animate={{ scale: [1, 0.5], opacity: [1, 0] }} transition={{ duration: 0.5 }}><div className="w-full absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] whitespace-normal p-5">{side ? props.answer : props.question}</div></motion.div>
         </SquareStyleBig>
       )
     } catch {
-      return null
+      return (
+        <SquareStyleBig key="animate" onClick={increment} animate={{ x: 500, y: 500, width: 0, height: 0, opacity: [1, 0] }} transition={{ duration: 1 }}>
+          <motion.div className="whitespace-nowrap w-full relative h-full" animate={{ scale: [1, 0.5], opacity: [1, 0] }} transition={{ duration: 0.5 }}><div className="w-full absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] whitespace-normal p-5">{side ? props.answer : props.question}</div></motion.div>
+        </SquareStyleBig>
+      )
     }
   }
 }
@@ -190,13 +193,13 @@ function ScoreSquare(props) {
       <div className="flex flex-row mx-2">
         <div className="flex flex-col h-full flex-grow" onClick={() => { props.subtract(props.index) }}>
           <div className="flex-grow"></div>
-          <span class="material-icons text-yellow-300 cursor-default">remove</span>
+          <span className="material-icons text-yellow-300 cursor-default">remove</span>
           <div className="flex-grow"></div>
         </div>
         <p className="text-yellow-300">{props.score}</p>
         <div className="flex flex-col h-full flex-grow" onClick={() => {props.add(props.index)}}>
           <div className="flex-grow"></div>
-          <span class="material-icons text-yellow-300 cursor-default">add</span>
+          <span className="material-icons text-yellow-300 cursor-default">add</span>
           <div className="flex-grow"></div>
         </div>
       </div>
@@ -211,18 +214,17 @@ function Scorer(props) {
 
   function add(index) {
     addScore(index, props.value)
-    console.log(index)
   }
 
   function subtract(index) {
     subtractScore(index, props.value)
-    console.log('subtract')
   }
+
 
   return (
     <div className="flex flex-row border-[3px] border-black mt-4">
-      {state.map((item, index) => <ScoreSquare index={index} add={add} subtract={subtract} name={index + 1} score={item} onClick={console.log} remove={removeTeam} />)}
-      <Square value={<span class="material-icons text-yellow-300 cursor-default">add</span>} onClick={newTeam} />
+      {state.map((item, index) => <ScoreSquare key={item['id']} index={index} add={add} subtract={subtract} name={index + 1} score={item['score']} onClick={console.log} remove={removeTeam} />)}
+      <Square key="add" value={<span className="material-icons text-yellow-300 cursor-default">add</span>} onClick={newTeam} />
     </div>
   )
 }
@@ -230,7 +232,7 @@ function Scorer(props) {
 function useScore(numTeams) {
   let teams = []
   for (let i = 0; i < numTeams; i++) {
-    teams[i] = 0
+    teams[i] = { score: 0, id: nanoid() }
   }
 
   const [state, setState] = useState(teams)
@@ -243,13 +245,13 @@ function useScore(numTeams) {
 
   function subtractTeam(index, amount) {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy[index] = stateCopy[index] - amount
+    stateCopy[index]['score'] = stateCopy[index]['score'] - amount
     setState(stateCopy)
   }
 
   function newTeam() {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy.push(0)
+    stateCopy.push({score: 0, id: nanoid()})
     setState(stateCopy)
   }
 
