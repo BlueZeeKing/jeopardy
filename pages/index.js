@@ -115,7 +115,7 @@ function Category(props) {
     <div className="w-full">
       <div className="flex flex-col h-full">
         <Square value={props.value} onClick={(item, item2) => { console.log(item, item2) }} text={true} />
-        {[200,400,600,800,1000].map((item) => <Square key={item} value={item} onClick={handleClick}/>)}
+        {[200,400,600,800,1000].map((item) => <Square active key={item} value={item} onClick={handleClick}/>)}
       </div>
     </div>
   )
@@ -126,13 +126,15 @@ function Square(props) {
   const [show, setShow] = useState(true)
 
   function clickHandler() {
-    if (show) {
-      let coords = square.current.getBoundingClientRect()
+    if (props.active) {
+      if (show) {
+        let coords = square.current.getBoundingClientRect()
 
-      props.onClick(props.value, coords)
-      setShow(false)
-    } else {
-      setShow(true)
+        props.onClick(props.value, coords)
+        setShow(false)
+      } else {
+        setShow(true)
+      }
     }
   }
 
