@@ -67,6 +67,7 @@ function Jeopardy(props) {
     marginTop: 0,
     category: '',
     score: 0,
+    dd: false,
   })
 
   function clickHandler(category, value, coords) {
@@ -78,6 +79,7 @@ function Jeopardy(props) {
       top: coords.y,
       category: category,
       score: value,
+      dd: questions[category][value]['dd'],
     })
   }
 
@@ -90,6 +92,7 @@ function Jeopardy(props) {
       top: 0,
       category: '',
       score: state.score,
+      dd: state.dd,
     })
   }
 
@@ -99,9 +102,9 @@ function Jeopardy(props) {
         <div className="flex flex-row w-full flex-grow border-[3px] border-black">
             {categories.map((item) => <Category onClick={clickHandler} key={item} value={item} />)}
         </div>
-        <Scorer value={state.score} />
+        <Scorer dd={state.dd} value={state.score} />
       </div>
-      <AnimateSquare disappear={disappear} width={state.width} height={state.height} left={state.left} top={state.top} reveal={state.reveal} question={state.reveal ? questions[state.category][state.score]['question'] : ''} answer={state.reveal ? questions[state.category][state.score]['answer'] : ''} />
+      <AnimateSquare dd={state.dd} disappear={disappear} width={state.width} height={state.height} left={state.left} top={state.top} reveal={state.reveal} question={state.reveal ? questions[state.category][state.score]['question'] : ''} answer={state.reveal ? questions[state.category][state.score]['answer'] : ''} />
     </>
   )
 }
@@ -115,7 +118,7 @@ function Category(props) {
     <div className="w-full">
       <div className="flex flex-col h-full">
         <Square value={props.value} onClick={(item, item2) => { console.log(item, item2) }} text={true} />
-        {[200,400,600,800,1000].map((item) => <Square active key={item} value={item} onClick={handleClick}/>)}
+        {[200, 400, 600, 800, 1000].map((item) => <Square active key={item} value={item} onClick={handleClick}/>)}
       </div>
     </div>
   )
@@ -162,7 +165,7 @@ function AnimateSquare(props) {
   if (props.reveal) {
     return (
       <SquareStyleBig key="animate" onClick={increment} animate={{ x: [props.left, 10], y: [props.top, 10], width: [props.width, window.innerWidth - 20], height: [props.height, window.innerHeight - 20], opacity: [1, 1] }} transition={{ duration: 0.7 }}>
-        <motion.div className="whitespace-nowrap w-full relative h-full" animate={{ scale: [0.5, 1], opacity: [0, 1] }} transition={{ duration: 0.3, delay: 0.7 }}><div className="w-full absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] whitespace-normal p-5">{side ? props.answer : props.question}</div></motion.div>
+        <motion.div className="whitespace-nowrap w-full relative h-full" animate={{ scale: [0.5, 1], opacity: [0, 1] }} transition={{ duration: 0.3, delay: 0.7 }}><div className="w-full absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] whitespace-normal p-5">{props.dd && !side ? 'Daily Double!' : ''}{props.dd && !side ? <><br /><br /></> : ''}{side ? props.answer : props.question}</div></motion.div>
       </SquareStyleBig>
     )
   } else {
@@ -216,11 +219,11 @@ function Scorer(props) {
   const [state, addScore, subtractScore, newTeam, removeTeam] = useScore(3)
 
   function add(index) {
-    addScore(index, props.value)
+    addScore(index, props.value * (props.dd + 1))
   }
 
   function subtract(index) {
-    subtractScore(index, props.value)
+    subtractScore(index, props.value * (props.dd + 1))
   }
 
 
