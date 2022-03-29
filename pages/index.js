@@ -10,18 +10,18 @@ import { motion } from "framer-motion"
 import questions from '../questions';
 
 const SquareStyle = styled.div`
-  color: #FBBF24;
+  color: ${(props) => (props.titleSquare ? "white" : "#fbbf24")};
   width: 100%;
   height: 100%;
   font-weight: bold;
-  background-color: blue;
+  background-color: ${(props) => (props.highlight ? "#3b3bff" : "blue")};
   border: 3px solid black;
   font-size: 1.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-`
+`;
 
 const SquareStyleBig = styled(motion.div)`
   color: #FBBF24;
@@ -117,7 +117,7 @@ function Category(props) {
   return (
     <div className="w-full">
       <div className="flex flex-col h-full">
-        <Square value={props.value} onClick={(item, item2) => { console.log(item, item2) }} text={true} />
+        <Square titleSquare={true} value={props.value} onClick={(item, item2) => { console.log(item, item2) }} text={true} />
         {[200, 400, 600, 800, 1000].map((item) => <Square active key={item} value={item} onClick={handleClick}/>)}
       </div>
     </div>
@@ -129,25 +129,34 @@ function Square(props) {
   const [show, setShow] = useState(true)
 
   function clickHandler() {
-    if (props.active) {
-      if (show) {
-        let coords = square.current.getBoundingClientRect()
+    try {
+      props.onClick()
+    } catch {
+      if (props.active) {
+        if (show) {
+          let coords = square.current.getBoundingClientRect();
 
-        props.onClick(props.value, coords)
-        setShow(false)
-      } else {
-        setShow(true)
+          props.onClick(props.value, coords);
+          setShow(false);
+        } else {
+          setShow(true);
+        }
       }
     }
   }
 
   return (
-    <SquareStyle text={false} ref={square} onClick={clickHandler} >
+    <SquareStyle
+      titleSquare={props.titleSquare}
+      text={false}
+      ref={square}
+      onClick={clickHandler}
+    >
       <div className="flex-grow"></div>
-      <p>{show ? props.value : ''}</p>
+      <p>{show ? props.value : ""}</p>
       <div className="flex-grow"></div>
     </SquareStyle>
-  )
+  );
 }
 
 function AnimateSquare(props) {
@@ -193,7 +202,7 @@ function ScoreSquare(props) {
   }
 
   return (
-    <SquareStyle>
+    <SquareStyle highlight={props.current == props.index}>
       <div className="flex-grow"></div>
       <input value={state} onChange={handleChange} type="text" className="w-full m-2 outline-none focus:outline-none bg-blue bg-opacity-0 text-center underline focus:text-yellow-200 hover:text-yellow-300" />
       <div className="flex flex-row mx-2">
@@ -216,9 +225,10 @@ function ScoreSquare(props) {
 }
 
 function Scorer(props) {
-  const [state, addScore, subtractScore, newTeam, removeTeam] = useScore(3)
+  const [teams, current_team, addScore, subtractScore, newTeam, removeTeam] = useScore(3)
 
   function add(index) {
+    console.log(index)
     addScore(index, props.value * (props.dd + 1))
   }
 
@@ -226,10 +236,9 @@ function Scorer(props) {
     subtractScore(index, props.value * (props.dd + 1))
   }
 
-
   return (
     <div className="flex flex-row border-[3px] border-black mt-4">
-      {state.map((item, index) => <ScoreSquare key={item['id']} index={index} add={add} subtract={subtract} name={index + 1} score={item['score']} onClick={console.log} remove={removeTeam} />)}
+      {teams.map((item, index) => <ScoreSquare current={current_team} key={item['id']} index={index} add={add} subtract={subtract} name={index + 1} score={item['score']} onClick={console.log} remove={removeTeam} />)}
       <Square key="add" value={<span className="material-icons text-yellow-300 cursor-default">add</span>} onClick={newTeam} />
     </div>
   )
@@ -241,31 +250,31 @@ function useScore(numTeams) {
     teams[i] = { score: 0, id: nanoid() }
   }
 
-  const [state, setState] = useState(teams)
+  const [state, setState] = useState([teams, 0]) // teams, current team
 
   function addTeam(index, amount) {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy[index]['score'] = stateCopy[index]['score'] + amount
+    stateCopy[0][index]['score'] = stateCopy[0][index]['score'] + amount
     setState(stateCopy)
   }
 
   function subtractTeam(index, amount) {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy[index]['score'] = stateCopy[index]['score'] - amount
+    stateCopy[0][index]['score'] = stateCopy[0][index]['score'] - amount
     setState(stateCopy)
   }
 
   function newTeam() {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy.push({score: 0, id: nanoid()})
+    stateCopy[0].push({score: 0, id: nanoid()})
     setState(stateCopy)
   }
 
   function removeTeam(index) {
     let stateCopy = JSON.parse(JSON.stringify(state))
-    stateCopy.splice(index, 1)
+    stateCopy[0].splice(index, 1)
     setState(stateCopy)
   }
 
-  return [state, addTeam, subtractTeam, newTeam, removeTeam]
+  return [state[0], state[1], addTeam, subtractTeam, newTeam, removeTeam]
 }
